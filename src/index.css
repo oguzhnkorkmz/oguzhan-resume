@@ -8,12 +8,13 @@
 
 html {
   scroll-behavior: smooth;
+  background: #111 !important;
 }
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #fdfdfd;
-  color: #121212;
+  background-color: #111 !important;
+  color: #fdfdfd;
   line-height: 1.6;
 }
 
@@ -40,23 +41,34 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #181818;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
+.logo {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #fdfdfd;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
 .nav-links a {
   margin-right: 1.5rem;
-  color: #444;
+  color: #fdfdfd;
   font-weight: 500;
 }
 .nav-links a:last-child {
   margin-right: 0;
 }
 .nav-links a:hover {
-  color: #000;
+  color: #5e3eff;
 }
 
 /* Header */
@@ -66,13 +78,14 @@ a:hover {
   justify-content: flex-start;
   padding: 2.5rem 3rem;
   gap: 2.5rem;
-  background-color: #fff;
-  border-bottom: 2px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.header-left {
-  flex-shrink: 0;
+  background-color: #181818;
+  border-bottom: 2px solid #222;
+  box-shadow: 0 2px 16px rgba(106, 79, 255, 0.1);
+  max-width: 900px;
+  margin: 2rem auto 0 auto;
+  border-radius: 24px;
+  transition: box-shadow 0.4s, transform 0.4s;
+  animation: headerAppear 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
 }
 
 .profile-pic {
@@ -84,15 +97,15 @@ a:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.header-right h1 {
+.header-info h1 {
   font-size: 2.8rem;
   margin: 0;
-  color: #222;
+  color: #fdfdfd;
 }
 
-.header-right p {
+.header-info p {
   font-size: 1.3rem;
-  color: #555;
+  color: #aaa;
   margin-top: 0.5rem;
 }
 
@@ -107,13 +120,12 @@ a:hover {
   font-size: 2rem;
   transition: all 0.3s ease;
 }
-
 .socials a:hover {
   color: #5e3eff;
   transform: scale(1.1);
 }
 
-/* Main Content */
+/* Main */
 main.grid {
   display: flex;
   flex-direction: column;
@@ -125,25 +137,54 @@ main.grid {
 
 /* Sections */
 main section {
-  background-color: #fff;
+  background-color: #181818;
+  color: #fdfdfd;
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(106, 79, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.18),
+    0 1.5px 6px rgba(94, 62, 255, 0.08);
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.4s ease;
+  margin: 2rem 0;
 }
 main section:hover {
   transform: translateY(-4px);
 }
 
+/* Animasyon */
+@keyframes modernSlideFade {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.96) rotateX(12deg);
+    filter: blur(12px);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateY(-10px) scale(1.03) rotateX(-3deg);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+main section.slide-in-right {
+  animation: modernSlideFade 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Section başlıkları */
 section h2 {
   font-size: 1.8rem;
-  color: #333;
+  color: #fdfdfd;
   border-bottom: 2px solid #6a4fff;
   padding-bottom: 0.4rem;
   margin-bottom: 1.2rem;
 }
 
-/* Skills list */
+/* Skills */
 .skills-list {
   display: flex;
   flex-wrap: wrap;
@@ -152,20 +193,20 @@ section h2 {
   padding: 0;
 }
 .skills-list li {
-  background-color: #eef1f5;
+  background-color: #222;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
-  color: #333;
+  color: #fdfdfd;
 }
 
-/* Buttons */
+/* Button */
 button {
   margin: 1rem auto 0;
   display: block;
   padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
+  background-color: #6a4fff;
+  color: #fff;
   font-size: 0.95rem;
   font-weight: 500;
   border: none;
@@ -174,51 +215,262 @@ button {
   transition: background 0.3s ease;
 }
 button:hover {
-  background-color: #0056b3;
+  background-color: #5e3eff;
 }
 
 /* Footer */
 footer {
-  background-color: #ffffff;
-  color: #555;
+  background-color: #181818;
+  color: #aaa;
   padding: 2rem;
   text-align: center;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #222;
   margin-top: auto;
 }
-footer hr {
-  margin: 1rem 0;
-  border-color: #ccc;
+footer a {
+  color: #aaa;
+}
+footer a:hover {
+  color: #fff;
 }
 
-/* Responsive */
+/* Dropdown Animasyonu */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive Navbar ve Dropdown --- */
+@media (max-width: 1024px) {
+  .container,
+  .header,
+  main.grid {
+    max-width: 98vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    position: static;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0;
+    background: none;
+    color: #fdfdfd;
+    margin: 0 0.8rem;
+  }
+
+  .nav-links a:hover {
+    color: #5e3eff;
+    background: none;
+  }
+
+  .menu-toggle {
+    display: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    position: relative;
+    background: #181818;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fdfdfd;
+    margin-right: auto;
+    letter-spacing: 0.5px;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #fdfdfd;
+    font-size: 2.2rem;
+    cursor: pointer;
+    z-index: 101;
+    padding: 0.2rem 0.6rem;
+    transition: color 0.2s;
+  }
+  .menu-toggle:active,
+  .menu-toggle:focus {
+    color: #5e3eff;
   }
 
   .nav-links {
-    margin-top: 1rem;
+    display: none;
+    flex-direction: column;
+    width: 90vw;
+    max-width: 420px;
+    background: #181818;
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    box-shadow: 0 8px 32px rgba(106, 79, 255, 0.18),
+      0 2px 8px rgba(0, 0, 0, 0.12);
+    border-radius: 0 0 24px 24px;
+    z-index: 999;
+    padding: 2rem 1.2rem 1.5rem 1.2rem;
+    animation: dropdownFade 0.12s ease;
+    border: none;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  /* Menü açıkken gösterilsin */
+  .nav-links.open {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  }
+
+  .nav-links a {
+    margin: 0.7rem 0;
+    color: #fdfdfd;
+    font-weight: 700;
+    font-size: 1.3rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    text-align: right;
+    width: 100%;
+    align-self: flex-end;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-links a:hover {
+    background: #5e3eff;
+    color: #fff;
   }
 
   .header {
     flex-direction: column;
-    text-align: center;
+    gap: 1.2rem;
+    padding: 1.2rem 0.7rem;
+    margin: 1.2rem auto 0 auto;
+    max-width: 98vw;
+    border-radius: 18px;
   }
 
   .profile-pic {
-    margin-bottom: 1rem;
+    width: 100px;
+    height: 100px;
+    border-width: 3px;
   }
 
-  .header-right h1 {
+  .header-info h1 {
     font-size: 2rem;
+  }
+  .header-info p {
+    font-size: 1.1rem;
   }
 
   main.grid {
-    padding: 1.5rem;
+    gap: 1.2rem;
+    padding: 1.2rem 0.7rem;
+    max-width: 98vw;
+  }
+
+  main section {
+    padding: 1.2rem;
+    margin: 1.2rem 0;
+    border-radius: 12px;
+  }
+
+  section h2 {
+    font-size: 1.3rem;
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .skills-list li {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 16px;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 7px 14px;
+    border-radius: 5px;
+  }
+
+  footer {
+    padding: 1.2rem 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* --- Küçük ekranlar için --- */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.7rem 0.3rem;
+  }
+  .nav-links {
+    width: 98vw;
+    max-width: 98vw;
+    right: 1vw;
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+    border-radius: 0 0 16px 16px;
+  }
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 0.7rem 0.7rem;
+  }
+  .header {
+    padding: 0.7rem 0.2rem;
+    border-radius: 10px;
+  }
+  main.grid {
+    padding: 0.7rem 0.2rem;
+  }
+  main section {
+    padding: 0.7rem;
+    border-radius: 8px;
+  }
+  section h2 {
+    font-size: 1.1rem;
+  }
+  .skills-list li {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 12px;
+  }
+  button {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  footer {
+    padding: 0.7rem 0.2rem;
+    font-size: 0.85rem;
   }
 }

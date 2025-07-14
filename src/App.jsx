@@ -1,9 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import "./index.css";
 import profileImg from "./img/DCB0744C-F896-4D73-A2C5-7C382CF05FFD.JPG";
 
 export default function Resume() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Animasyon
+  useEffect(() => {
+    const sections = document.querySelectorAll("main section");
+    const handleScroll = () => {
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60 && rect.bottom > 60) {
+          section.classList.add("slide-in-right");
+        } else {
+          section.classList.remove("slide-in-right");
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Dışarı tıklama menüyü kapatsın
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const menu = document.querySelector(".nav-links");
+      const toggle = document.querySelector(".menu-toggle");
+      if (
+        menuOpen &&
+        menu &&
+        !menu.contains(e.target) &&
+        (!toggle || !toggle.contains(e.target))
+      ) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [menuOpen]);
+
+  // Escape tuşu
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Ekran genişleyince menüyü kapat
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 769 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
+
   const skills = [
     "C#",
     ".NET Core",
@@ -37,18 +97,32 @@ export default function Resume() {
 
   return (
     <div className="container">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="logo">Oğuzhan Korkmaz</div>
-        <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#certificates">Certificates</a>
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label="Menüyü Aç/Kapat"
+          aria-expanded={menuOpen}
+        >
+          &#9776;
+        </button>
+        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <a href="#about" onClick={() => setMenuOpen(false)}>
+            About
+          </a>
+          <a href="#projects" onClick={() => setMenuOpen(false)}>
+            Projects
+          </a>
+          <a href="#skills" onClick={() => setMenuOpen(false)}>
+            Skills
+          </a>
+          <a href="#certificates" onClick={() => setMenuOpen(false)}>
+            Certificates
+          </a>
         </div>
       </nav>
 
-      {/* Header */}
       <header className="header">
         <img
           src={profileImg}
@@ -79,9 +153,7 @@ export default function Resume() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="grid">
-        {/* About */}
         <section id="about">
           <h2>About Me</h2>
           <p>
@@ -100,7 +172,6 @@ export default function Resume() {
           </p>
         </section>
 
-        {/* Projects */}
         <section id="projects">
           <h2>Projects</h2>
           <ul>
@@ -127,7 +198,6 @@ export default function Resume() {
           </ul>
         </section>
 
-        {/* Skills */}
         <section id="skills">
           <h2>Skills</h2>
           <ul className="skills-list">
@@ -137,7 +207,6 @@ export default function Resume() {
           </ul>
         </section>
 
-        {/* Certificates */}
         <section id="certificates">
           <h2>Certificates</h2>
           <ul>
@@ -157,7 +226,6 @@ export default function Resume() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer>
         <h2>Contact</h2>
         <p>
